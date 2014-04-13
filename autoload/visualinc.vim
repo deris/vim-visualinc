@@ -40,7 +40,7 @@ function! s:visual_increment(step) "{{{2
   try
     let realstep = a:step * v:count1
     if visualmode() ==# 'V'
-      execute printf('''<,''>s/\d\+/\=submatch(0)+%d/g', realstep)
+      execute printf('''<,''>s/-\?\d\+/\=submatch(0)+%d/g', realstep)
     else
       " TODO now only support linewise Visual mode.
     endif
