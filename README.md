@@ -7,7 +7,8 @@ This is Vim plugin for adding or subtracting `[count]` to the number
 Screenshot
 ---
 
-Screenshot is under construction
+### Increment and decrement number in Visual mode.
+![screenshot](http://gifzo.net/73eCnnLi7U.gif)
 
 Usage
 ---
