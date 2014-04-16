@@ -4,8 +4,6 @@ visualinc
 This is Vim plugin for adding or subtracting `[count]` to the number
  of all in selected in Visual mode.
 
-Now only support linewise Visual mode.
-
 Screenshot
 ---
 

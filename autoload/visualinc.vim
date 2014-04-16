@@ -1,5 +1,5 @@
 " visualinc - Increment or decrement number in Visual mode.
-" Version: 0.0.1
+" Version: 0.1.0
 " Copyright (C) 2014 deris0126
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
@@ -40,14 +40,41 @@ function! s:visual_increment(step) "{{{2
   try
     let realstep = a:step * v:count1
     if visualmode() ==# 'V'
-      execute printf('''<,''>s/-\?\d\+/\=submatch(0)+%d/g', realstep)
-    else
-      " TODO now only support linewise Visual mode.
+      call s:execute_with_ignore_exception(printf('''<,''>s/-\?\d\+/\=submatch(0)+%d/g', realstep))
+    elseif visualmode() ==# 'v'
+      let spos = getpos('''<')
+      let epos = getpos('''>')
+      if spos[1] == epos[1]
+        call s:execute_with_ignore_exception(printf('%ds/\%%>%dc.\{-}\zs-\?\d\+\ze.*\%%<%dc/\=submatch(0)+%d/g', spos[1], spos[2]-1, epos[2]+2, realstep))
+      elseif spos[1] < epos[1]
+        call s:execute_with_ignore_exception(printf('%ds/\%%>%dc.\{-}\zs-\?\d\+/\=submatch(0)+%d/g', spos[1], spos[2]-1, realstep))
+        let spos_next = spos[1] + 1
+        let epos_prev = epos[1] - 1
+        if spos_next <= epos_prev
+          call s:execute_with_ignore_exception(printf('%d,%ds/-\?\d\+/\=submatch(0)+%d/g', spos_next, epos_prev, realstep))
+        endif
+        call s:execute_with_ignore_exception(printf('%ds/-\?\d\+\ze.*\%%<%dc/\=submatch(0)+%d/g', epos[1], epos[2]+2, realstep))
+      else
+        " do nothing
+      endif
+    elseif visualmode() ==# ''
+      let spos = getpos('''<')
+      let epos = getpos('''>')
+      call s:execute_with_ignore_exception(printf('%d,%ds/\%%>%dc.\{-}\zs-\?\d\+\ze.*\%%<%dc/\=submatch(0)+%d/g', spos[1], epos[1], spos[2]-1, epos[2]+2, realstep))
     endif
   catch
     " do nothing
   finally
     normal! gv
+  endtry
+endfunction
+"}}}
+
+function! s:execute_with_ignore_exception(command) "{{{2
+  try
+    execute a:command
+  catch
+    " do nothing
   endtry
 endfunction
 "}}}

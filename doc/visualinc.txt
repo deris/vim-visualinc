@@ -1,6 +1,6 @@
 *visualinc.txt*	Increment or decrement number in Visual mode.
 
-Version 0.0.1
+Version 0.1.0
 Copyright (C) 2014 deris
 License: MIT license  {{{
     Permission is hereby granted, free of charge, to any person obtaining
@@ -38,8 +38,6 @@ INTRODUCTION					*visualinc-introduction*
 
 This is Vim plugin for adding or subtracting [count] to the number
  of all in selected in Visual mode.
-
-Now only support linewise Visual mode.
 
 
 Requirements:
@@ -84,6 +82,10 @@ BUGS						*rengbang-bugs*
 
 ==============================================================================
 CHANGELOG					*rengbang-changelog*
+
+0.1.0	2014-04-16
+- Support Negative Number.
+- Support characterwise and blockwise Visual mode.
 
 0.0.1	2014-04-13
 - First Version.

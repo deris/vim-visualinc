@@ -1,5 +1,5 @@
 " visualinc - Increment or decrement number in Visual mode.
-" Version: 0.0.1
+" Version: 0.1.0
 " Copyright (C) 2014 deris0126
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
